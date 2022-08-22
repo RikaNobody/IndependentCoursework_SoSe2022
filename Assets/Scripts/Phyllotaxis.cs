@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Phyllotaxis : MonoBehaviour
 {
-    //public GameObject _circle;
-    //public HUDManager hud;
+    public GameObject _circle;
+    public HUDManager hud;
    
     private TrailRenderer trailRenderer; 
     public float _degree, _scale, _circleScale; 
@@ -22,14 +22,15 @@ public class Phyllotaxis : MonoBehaviour
 
     private int currentIteration; 
 
-    //float hudDegree, hudScale; 
+    float hudDegree, hudScale; 
 
     private Vector3 _phyllotaxisPosition;
 
     void Awake()
     {   
-        //hud = gameObject.GetComponent<HUDManager>();    
-        
+        hud = gameObject.GetComponent<HUDManager>();
+        hudDegree = 0f;
+        hudScale = 0f; 
         trailRenderer = GetComponent<TrailRenderer>();
         number = numberStart;
         transform.localPosition = CalculatePhyllotaxis(_degree, _scale, number);
@@ -79,17 +80,20 @@ public class Phyllotaxis : MonoBehaviour
     }
     void Update()
     {
-        //hudDegree = hud.degree;
-        //hudScale = hud.circleScale; 
+       // hudDegree = hud.degree;
+       // hudScale = hud.circleScale; 
 
-      /*  if (Input.GetKey(KeyCode.Space)){
-            _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart); 
+        if (Input.GetKey(KeyCode.Space)){
+          //  hudDegree = hud.degree;
+          //  hudScale = hud.circleScale;
+          // _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
+            _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, numberStart);
             GameObject circleInstance = (GameObject)Instantiate(_circle); 
             circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
             circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
             numberStart++; 
         }
-      */
+      
         if(Input.GetKey(KeyCode.KeypadEnter)) {
              SceneManager.LoadScene("SampleScene");
         }

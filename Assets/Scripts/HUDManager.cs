@@ -6,9 +6,10 @@ using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
-    public GameObject degreeInput;
+    public TMP_InputField degreeInput;
     public GameObject circleScaleInput;
-    public GameObject currentHUD; 
+    public GameObject currentHUD;
+    public Button startButton; 
     public float degree, circleScale; 
     string _degreeInput, _circleScaleInput;
 
@@ -22,14 +23,17 @@ public class HUDManager : MonoBehaviour
 
     void Update()
     {
-        _degreeInput = degreeInput.gameObject.GetComponent<TMP_InputField>().text;
-        degree = float.Parse(_degreeInput); 
-        
-        _circleScaleInput = circleScaleInput.gameObject.GetComponent<TMP_InputField>().text;
-        circleScale = float.Parse(_circleScaleInput); 
+        startButton.onClick.AddListener(EndEditInput); 
+
+        /* _degreeInput = degreeInput.gameObject.GetComponent<TMP_InputField>().text;
+         degree = float.Parse(_degreeInput); 
+
+         _circleScaleInput = circleScaleInput.gameObject.GetComponent<TMP_InputField>().text;
+         circleScale = float.Parse(_circleScaleInput); 
+        */
        
-        Debug.Log("DEGREE INPUT: " +  _degreeInput);
-        Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
+       // Debug.Log("DEGREE INPUT: " +  _degreeInput);
+       // Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -39,5 +43,17 @@ public class HUDManager : MonoBehaviour
         {
             currentHUD.SetActive(true);
         }
+    }
+
+    public void EndEditInput()
+    {
+        _degreeInput = degreeInput.gameObject.GetComponent<TMP_InputField>().text;
+        degree = float.Parse(_degreeInput);
+
+        _circleScaleInput = circleScaleInput.gameObject.GetComponent<TMP_InputField>().text;
+        circleScale = float.Parse(_circleScaleInput);
+
+        Debug.Log("DEGREE INPUT: " + _degreeInput);
+        Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
     }
 }
