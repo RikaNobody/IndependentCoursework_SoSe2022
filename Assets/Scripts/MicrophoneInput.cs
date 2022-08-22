@@ -68,7 +68,8 @@ public class MicrophoneInput : MonoBehaviour
                 count++; 
             }
             average = average/count;
-            frequencyBand[i] = average * 10; 
+            frequencyBand[i] = average * 10;
+            //Debug.Log("AVERAGE INPUT - - " + average ); 
         }
     }
 
@@ -86,5 +87,10 @@ public class MicrophoneInput : MonoBehaviour
                 bufferDecrease[i] *= 1.2f; 
             }
         }
+    }
+
+    public float[] GetFrequencyBand()
+    {
+        return frequencyBand; 
     }
 }

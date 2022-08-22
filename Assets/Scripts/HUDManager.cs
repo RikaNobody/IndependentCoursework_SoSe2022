@@ -60,12 +60,13 @@ public class HUDManager : MonoBehaviour
         _circleScaleInput = circleScaleInput.gameObject.GetComponent<TMP_InputField>().text;
         circleScale = float.Parse(_circleScaleInput);
 
-        Debug.Log("DEGREE INPUT: " + _degreeInput);
-        Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
+        //Debug.Log("DEGREE INPUT: " + _degreeInput);
+        //Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
     }
 
     public void ResetScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        //SceneManager.LoadScene("SampleScene");
+        //Application.LoadLevel(Application.loadedLevel);
     }
 }

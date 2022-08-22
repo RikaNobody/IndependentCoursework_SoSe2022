@@ -7,13 +7,17 @@ public class Phyllotaxis : MonoBehaviour
 {
     public GameObject _circle;
     public HUDManager hud;
+    public GameObject audioManager;
+    public MicrophoneInput microphoneInput; 
    
     private TrailRenderer trailRenderer; 
     public float _degree, _scale, _circleScale; 
     public int numberStart, stepSize, maxIteration;
     private int number;
- 
+    public static float[] frequencyBand = new float[8];
+
     public bool useLerping;
+    public bool useAudioInput; 
     public float intervalLerp;
     private bool isLerping;
     private Vector3 startPosition, endPosition;
@@ -32,6 +36,8 @@ public class Phyllotaxis : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         number = numberStart;
         transform.localPosition = CalculatePhyllotaxis(_degree, _scale, number);
+
+        microphoneInput = audioManager.GetComponent<MicrophoneInput>(); 
 
         if (useLerping)
         {
@@ -91,6 +97,29 @@ public class Phyllotaxis : MonoBehaviour
             circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
             circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
             numberStart++; 
+        }
+
+        if (useAudioInput)
+        {
+            float average=0; 
+            for (int i = 0; i<8; i++)
+            {
+                frequencyBand[i] = microphoneInput.GetFrequencyBand()[i];
+                average = average + frequencyBand[i];
+            }
+
+            average = average / 8;
+            //Debug.Log("- Average Input Phyllotaxis - " + average);
+
+            if (average>0.02)
+            {
+                //Debug.Log("- - - WERTE ÄNDERN - - -");
+                _degree = _degree++; 
+
+            }
+
+            Debug.Log(" - DEGREE"+_degree);
+             
         }
       
     }  
