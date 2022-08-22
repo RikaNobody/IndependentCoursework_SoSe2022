@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class Phyllotaxis : MonoBehaviour
@@ -13,7 +12,7 @@ public class Phyllotaxis : MonoBehaviour
     public float _degree, _scale, _circleScale; 
     public int numberStart, stepSize, maxIteration;
     private int number;
-    
+ 
     public bool useLerping;
     public float intervalLerp;
     private bool isLerping;
@@ -27,8 +26,7 @@ public class Phyllotaxis : MonoBehaviour
     private Vector3 _phyllotaxisPosition;
 
     void Awake()
-    {   
-        hud = gameObject.GetComponent<HUDManager>();
+    {     
         hudDegree = 0f;
         hudScale = 0f; 
         trailRenderer = GetComponent<TrailRenderer>();
@@ -80,23 +78,21 @@ public class Phyllotaxis : MonoBehaviour
     }
     void Update()
     {
-       // hudDegree = hud.degree;
-       // hudScale = hud.circleScale; 
+        hudDegree = hud.degree;
+        hudScale = hud.circleScale;
 
-        if (Input.GetKey(KeyCode.Space)){
+        if (hud.startButtonPressed) { 
+       // if (Input.GetKey(KeyCode.Space)){
           //  hudDegree = hud.degree;
           //  hudScale = hud.circleScale;
-          // _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
-            _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, numberStart);
+           _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
+           // _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, numberStart);
             GameObject circleInstance = (GameObject)Instantiate(_circle); 
             circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
             circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
             numberStart++; 
         }
       
-        if(Input.GetKey(KeyCode.KeypadEnter)) {
-             SceneManager.LoadScene("SampleScene");
-        }
     }  
     private Vector2 CalculatePhyllotaxis(float degree, float scale, int number){
         double angle = number * (degree* Mathf.Deg2Rad); 
