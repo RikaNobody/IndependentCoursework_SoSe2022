@@ -10,10 +10,10 @@ public class Phyllotaxis : MonoBehaviour
     public GameObject audioManager;
     public MicrophoneInput microphoneInput; 
    
-    private TrailRenderer trailRenderer; 
-    public float _degree, _scale, _circleScale; 
+    private TrailRenderer trailRenderer;
+    public float _degree, _scale, _circleScale, audioInputDegree; 
     public int numberStart, stepSize, maxIteration;
-    private int number;
+    private int number, counter;
     public static float[] frequencyBand = new float[8];
 
     public bool useLerping;
@@ -32,7 +32,8 @@ public class Phyllotaxis : MonoBehaviour
     void Awake()
     {     
         hudDegree = 0f;
-        hudScale = 0f; 
+        hudScale = 0f;
+        counter = 0; 
         trailRenderer = GetComponent<TrailRenderer>();
         number = numberStart;
         transform.localPosition = CalculatePhyllotaxis(_degree, _scale, number);
@@ -87,21 +88,23 @@ public class Phyllotaxis : MonoBehaviour
         hudDegree = hud.degree;
         hudScale = hud.circleScale;
 
-        if (hud.startButtonPressed) { 
-       // if (Input.GetKey(KeyCode.Space)){
-          //  hudDegree = hud.degree;
-          //  hudScale = hud.circleScale;
-           _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
-           // _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, numberStart);
-            GameObject circleInstance = (GameObject)Instantiate(_circle); 
-            circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
-            circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
-            numberStart++; 
+        if (!useAudioInput)
+        {
+            if (hud.startButtonPressed) { 
+                _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
+                GameObject circleInstance = (GameObject)Instantiate(_circle); 
+                circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
+                circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
+                numberStart++; 
+            }
         }
+     
+        
 
         if (useAudioInput)
-        {
-            float average=0; 
+        {    
+            float average = 0;
+            
             for (int i = 0; i<8; i++)
             {
                 frequencyBand[i] = microphoneInput.GetFrequencyBand()[i];
@@ -109,19 +112,33 @@ public class Phyllotaxis : MonoBehaviour
             }
 
             average = average / 8;
-            //Debug.Log("- Average Input Phyllotaxis - " + average);
-
-            if (average>0.02)
+           
+            if (hud.startButtonPressed)
             {
-                //Debug.Log("- - - WERTE ÄNDERN - - -");
-                _degree = _degree++; 
+                if (counter == 0)
+                {
+                    audioInputDegree = hudDegree;
+                }
+                Debug.Log(" - DEGREE - " + audioInputDegree);
+                _phyllotaxisPosition = CalculatePhyllotaxis(audioInputDegree, hudScale, numberStart);
+                GameObject circleInstance = (GameObject)Instantiate(_circle);
+                circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
+                circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
+                numberStart++;
+                counter++;
 
+                if (average > 0.02)
+                {
+                    Debug.Log("- - - WERTE ÄNDERN - - -");
+                    audioInputDegree++;
+
+                }
             }
-
-            Debug.Log(" - DEGREE"+_degree);
-             
+            if (audioInputDegree>360)
+            {
+                audioInputDegree = 0; 
+            }
         }
-      
     }  
     private Vector2 CalculatePhyllotaxis(float degree, float scale, int number){
         double angle = number * (degree* Mathf.Deg2Rad); 

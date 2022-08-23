@@ -3023,9 +3023,10 @@ MonoBehaviour:
   _degree: 0
   _scale: 1
   _circleScale: 1
-  numberStart: 1
+  audioInputDegree: 0
+  numberStart: 2
   stepSize: 1
-  maxIteration: 0
+  maxIteration: 10
   useLerping: 0
   useAudioInput: 1
   intervalLerp: 0
