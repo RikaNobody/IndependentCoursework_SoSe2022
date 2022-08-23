@@ -11,18 +11,21 @@ public class Phyllotaxis : MonoBehaviour
     public MicrophoneInput microphoneInput; 
    
     private TrailRenderer trailRenderer;
+  
     public float _degree, _scale, _circleScale, audioInputDegree; 
     public int numberStart, stepSize, maxIteration;
+  
     private int number, counter;
+    
     public static float[] frequencyBand = new float[8];
 
     public bool useLerping;
     public bool useAudioInput; 
     public float intervalLerp;
+    
     private bool isLerping;
     private Vector3 startPosition, endPosition;
     private float timeStartLerping;
-
     private int currentIteration; 
 
     float hudDegree, hudScale; 
@@ -34,9 +37,9 @@ public class Phyllotaxis : MonoBehaviour
         hudDegree = 0f;
         hudScale = 0f;
         counter = 0; 
-        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer = this.GetComponent<TrailRenderer>();
         number = numberStart;
-        transform.localPosition = CalculatePhyllotaxis(_degree, _scale, number);
+        transform.position = CalculatePhyllotaxis(hudDegree, hudScale, number);
 
         microphoneInput = audioManager.GetComponent<MicrophoneInput>(); 
 
@@ -48,38 +51,42 @@ public class Phyllotaxis : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (useLerping)
+        if (hud.startButtonPressed)
         {
-            if (isLerping)
+            if (useLerping)
             {
-                float timeSinceStart = Time.time - timeStartLerping;
-                float percentageComplete = timeSinceStart / intervalLerp;
-                transform.localPosition = Vector3.Lerp(startPosition, endPosition, percentageComplete);
-               
-                if (percentageComplete >= 0.97f) // Das ist shitty 
+                if (isLerping)
                 {
-                    transform.localPosition = endPosition;
-                    number += stepSize;
-                    currentIteration++;
-                   
-                    if (currentIteration <= maxIteration)
+                    float timeSinceStart = Time.time - timeStartLerping;
+                    float percentageComplete = timeSinceStart / intervalLerp;
+                    transform.position = Vector3.Lerp(startPosition, endPosition, percentageComplete);
+
+                    if (percentageComplete >= 0.97f) // Das ist shitty 
                     {
-                        StartLerping();
-                    }
-                    
-                    else
-                    {
-                        isLerping = false; 
+                        transform.position = endPosition;
+                        number += stepSize;
+                        currentIteration++;
+
+                        if (currentIteration <= maxIteration)
+                        {
+                            StartLerping();
+                        }
+
+                        else
+                        {
+                            isLerping = false;
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, number);
-            transform.localPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
-            number += stepSize;
-            currentIteration++;
+
+            else
+            {
+                _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, number);
+                transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
+                number += stepSize;
+                currentIteration++;
+            }
         }
        
     }
@@ -153,8 +160,8 @@ public class Phyllotaxis : MonoBehaviour
     {
         isLerping = true; 
         timeStartLerping = Time.time;
-        _phyllotaxisPosition = CalculatePhyllotaxis(_degree, _scale, number);
-        startPosition = this.transform.localPosition;
+        _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, number);
+        startPosition = this.transform.position;
         endPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.x, 0); 
     }
 }
