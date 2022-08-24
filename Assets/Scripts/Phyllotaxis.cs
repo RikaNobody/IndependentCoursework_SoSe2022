@@ -103,7 +103,7 @@ public class Phyllotaxis : MonoBehaviour
 
         if (!useAudioInput)
         {
-            if (hud.startButtonPressed) { 
+            if (hud.startButtonPressed && hud.drawDots) { 
                 _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
                 GameObject circleInstance = (GameObject)Instantiate(_circle); 
                 circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
@@ -127,7 +127,7 @@ public class Phyllotaxis : MonoBehaviour
 
             average = average / 8;
            
-            if (hud.startButtonPressed)
+            if (hud.startButtonPressed && hud.drawDots)
             {
                 if (counter == 0)
                 {

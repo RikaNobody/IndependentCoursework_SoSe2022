@@ -10,14 +10,14 @@ public class HUDManager : MonoBehaviour
     public TMP_InputField degreeInput;
     public GameObject circleScaleInput;
     public GameObject currentHUD;
-    public Toggle audioInputToggle, trailRendererToggel;
+    public Toggle audioInputToggle, trailRendererToggel, renderDotsToggle;
     public GameObject colorChangerInput; 
     public Button startButton;
     public Button resetButton; 
     public float degree, circleScale;
     public int colorChanger; 
     string _degreeInput, _circleScaleInput, _colorChangerInput;
-    public bool startButtonPressed, useAudioInput, useTrailRenderer; 
+    public bool startButtonPressed, useAudioInput, useTrailRenderer, drawDots; 
 
     
     void Start()
@@ -95,6 +95,7 @@ public class HUDManager : MonoBehaviour
 
         useAudioInput = audioInputToggle.isOn;
         useTrailRenderer = trailRendererToggel.isOn;
+        drawDots = renderDotsToggle.isOn; 
 
         Debug.Log("AUDIO INPUT " + useAudioInput); 
 
