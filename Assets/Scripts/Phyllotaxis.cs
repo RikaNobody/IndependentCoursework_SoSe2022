@@ -13,10 +13,14 @@ public class Phyllotaxis : MonoBehaviour
     private TrailRenderer trailRenderer;
   
     public float _degree, _scale, _circleScale, audioInputDegree; 
-    public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter;
+    public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter, dropdownValue;
 
-    public Material[] changeMaterials = new Material[4];  
-   
+    public Material[] colorfulMaterials = new Material[4];
+    public Material[] redMaterials = new Material[4];
+    public Material[] blueMaterials = new Material[4];
+    public Material[] greenMaterials = new Material[4];
+    public Material[] purpleMaterials = new Material[4];
+
     private int number, counter;
     
     public static float[] frequencyBand = new float[8];
@@ -99,7 +103,8 @@ public class Phyllotaxis : MonoBehaviour
         hudScale = hud.circleScale;
         colorChanger = hud.colorChanger;
         useAudioInput = hud.useAudioInput;
-        useTrailRenderer = hud.useTrailRenderer; 
+        useTrailRenderer = hud.useTrailRenderer;
+        dropdownValue = hud.dropdownValue; 
 
         if (!useAudioInput)
         {
@@ -160,7 +165,7 @@ public class Phyllotaxis : MonoBehaviour
         {
             //audioInputDegree = 0;
             instanceCounter = 0;
-            _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(changeMaterials);
+            _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(GetColorPalette(dropdownValue));
         }
     }  
     private Vector2 CalculatePhyllotaxis(float degree, float scale, int number){
@@ -189,5 +194,41 @@ public class Phyllotaxis : MonoBehaviour
         selectedColor = selectedColors[randomInt];
 
         return selectedColor; 
+    }
+
+    public Material[] GetColorPalette(int dropdownValue)
+    {
+        Material[] selectedColorPalette = new Material[4];
+
+        switch (dropdownValue)
+        {
+            case 0:
+                selectedColorPalette = colorfulMaterials;
+                Debug.Log("Case 1"); 
+                break;
+            case 1:
+                selectedColorPalette = redMaterials;
+                Debug.Log("Case 2");
+                break;
+            case 2:
+                selectedColorPalette = blueMaterials;
+                Debug.Log("Case 3");
+                break;
+            case 3:
+                selectedColorPalette = greenMaterials;
+                Debug.Log("Case 4");
+                break;
+            case 4:
+                selectedColorPalette = purpleMaterials;
+                Debug.Log("Case 5");
+                break;
+            default:
+                selectedColorPalette = colorfulMaterials;
+                Debug.Log("Case default");
+                break; 
+        }
+
+        return selectedColorPalette; 
+
     }
 }

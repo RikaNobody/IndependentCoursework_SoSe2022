@@ -11,11 +11,12 @@ public class HUDManager : MonoBehaviour
     public GameObject circleScaleInput;
     public GameObject currentHUD;
     public Toggle audioInputToggle, trailRendererToggel, renderDotsToggle;
+    public Dropdown chooseColorPalette; 
     public GameObject colorChangerInput; 
     public Button startButton;
     public Button resetButton; 
     public float degree, circleScale;
-    public int colorChanger; 
+    public int colorChanger, dropdownValue; 
     string _degreeInput, _circleScaleInput, _colorChangerInput;
     public bool startButtonPressed, useAudioInput, useTrailRenderer, drawDots; 
 
@@ -95,9 +96,10 @@ public class HUDManager : MonoBehaviour
 
         useAudioInput = audioInputToggle.isOn;
         useTrailRenderer = trailRendererToggel.isOn;
-        drawDots = renderDotsToggle.isOn; 
+        drawDots = renderDotsToggle.isOn;
+        dropdownValue = chooseColorPalette.value; 
 
-        Debug.Log("AUDIO INPUT " + useAudioInput); 
+        Debug.Log("selected Color " + dropdownValue); 
 
         //Debug.Log("DEGREE INPUT: " + _degreeInput);
         //Debug.Log("CIRCLE SCALE INPUT: " + _circleScaleInput);
