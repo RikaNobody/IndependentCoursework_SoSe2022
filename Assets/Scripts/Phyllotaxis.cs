@@ -13,15 +13,16 @@ public class Phyllotaxis : MonoBehaviour
     private TrailRenderer trailRenderer;
   
     public float _degree, _scale, _circleScale, audioInputDegree; 
-    public int numberStart, stepSize, maxIteration, colorChanger;
+    public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter;
 
     public Material[] changeMaterials = new Material[4];  
+   
     private int number, counter;
     
     public static float[] frequencyBand = new float[8];
 
     public bool useLerping;
-    public bool useAudioInput; 
+    public bool useAudioInput, useTrailRenderer; 
     public float intervalLerp;
     
     private bool isLerping;
@@ -38,7 +39,7 @@ public class Phyllotaxis : MonoBehaviour
         hudDegree = 0f;
         hudScale = 0f;
         counter = 0;
-        colorChanger = 0; 
+        instanceCounter = 0; 
         trailRenderer = this.GetComponent<TrailRenderer>();
         number = numberStart;
         transform.position = CalculatePhyllotaxis(hudDegree, hudScale, number);
@@ -96,6 +97,9 @@ public class Phyllotaxis : MonoBehaviour
     {
         hudDegree = hud.degree;
         hudScale = hud.circleScale;
+        colorChanger = hud.colorChanger;
+        useAudioInput = hud.useAudioInput;
+        useTrailRenderer = hud.useTrailRenderer; 
 
         if (!useAudioInput)
         {
@@ -104,7 +108,8 @@ public class Phyllotaxis : MonoBehaviour
                 GameObject circleInstance = (GameObject)Instantiate(_circle); 
                 circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
                 circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
-                numberStart++; 
+                numberStart++;
+                instanceCounter++;
             }
         }
      
@@ -135,7 +140,7 @@ public class Phyllotaxis : MonoBehaviour
                 circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
                 numberStart++;
                 counter++;
-                colorChanger++;
+                instanceCounter++;
                 if (average > 0.02)
                 {
                     Debug.Log("- - - WERTE ÄNDERN - - -");
@@ -143,11 +148,19 @@ public class Phyllotaxis : MonoBehaviour
 
                 }
             }
-            if (colorChanger == 50 || colorChanger == 100 || colorChanger == 150)
-            {
-                //audioInputDegree = 0;
-                _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(changeMaterials); 
-            }
+         
+        }
+
+        if (useTrailRenderer)
+        {
+            trailRenderer.enabled = true;  
+        }
+
+        if (instanceCounter == colorChanger)
+        {
+            //audioInputDegree = 0;
+            instanceCounter = 0;
+            _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(changeMaterials);
         }
     }  
     private Vector2 CalculatePhyllotaxis(float degree, float scale, int number){
