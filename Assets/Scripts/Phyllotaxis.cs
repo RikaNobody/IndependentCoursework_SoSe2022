@@ -13,8 +13,9 @@ public class Phyllotaxis : MonoBehaviour
     private TrailRenderer trailRenderer;
   
     public float _degree, _scale, _circleScale, audioInputDegree; 
-    public int numberStart, stepSize, maxIteration;
-  
+    public int numberStart, stepSize, maxIteration, colorChanger;
+
+    public Material[] changeMaterials = new Material[4];  
     private int number, counter;
     
     public static float[] frequencyBand = new float[8];
@@ -36,7 +37,8 @@ public class Phyllotaxis : MonoBehaviour
     {     
         hudDegree = 0f;
         hudScale = 0f;
-        counter = 0; 
+        counter = 0;
+        colorChanger = 0; 
         trailRenderer = this.GetComponent<TrailRenderer>();
         number = numberStart;
         transform.position = CalculatePhyllotaxis(hudDegree, hudScale, number);
@@ -133,7 +135,7 @@ public class Phyllotaxis : MonoBehaviour
                 circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
                 numberStart++;
                 counter++;
-
+                colorChanger++;
                 if (average > 0.02)
                 {
                     Debug.Log("- - - WERTE ÄNDERN - - -");
@@ -141,9 +143,10 @@ public class Phyllotaxis : MonoBehaviour
 
                 }
             }
-            if (audioInputDegree>360)
+            if (colorChanger == 50 || colorChanger == 100 || colorChanger == 150)
             {
-                audioInputDegree = 0; 
+                //audioInputDegree = 0;
+                _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(changeMaterials); 
             }
         }
     }  
@@ -163,5 +166,15 @@ public class Phyllotaxis : MonoBehaviour
         _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, number);
         startPosition = this.transform.position;
         endPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.x, 0); 
+    }
+
+    public Material GetRadomMaterial(Material [] selectedColors)
+    {
+        Material selectedColor;
+
+        int randomInt = Random.Range(0,4);
+        selectedColor = selectedColors[randomInt];
+
+        return selectedColor; 
     }
 }

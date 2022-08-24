@@ -3027,10 +3027,15 @@ MonoBehaviour:
   audioInputDegree: 0
   numberStart: 2
   stepSize: 1
-  maxIteration: 10
+  maxIteration: 50
+  changeMaterials:
+  - {fileID: 2100000, guid: 4adc4f08a106497459f0a3576aafb45f, type: 2}
+  - {fileID: 2100000, guid: 6ebaaf64678a26742aa16dccccf0453d, type: 2}
+  - {fileID: 2100000, guid: 09c1f38493d00b548982ac5c0f11ca56, type: 2}
+  - {fileID: 2100000, guid: 395007a2b8b2a484194a329ca54e0988, type: 2}
   useLerping: 1
   useAudioInput: 0
-  intervalLerp: 0
+  intervalLerp: 0.3
 --- !u!4 &1209420625
 Transform:
   m_ObjectHideFlags: 0
