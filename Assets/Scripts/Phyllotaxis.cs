@@ -8,11 +8,11 @@ public class Phyllotaxis : MonoBehaviour
     public GameObject _circle;
     public HUDManager hud;
     public GameObject audioManager;
-    public MicrophoneInput microphoneInput; 
-   
+    public MicrophoneInput microphoneInput;
+
     private TrailRenderer trailRenderer;
-  
-    public float _degree, _scale, _circleScale, audioInputDegree; 
+
+    public float _degree, _scale, _circleScale, audioInputDegree;
     public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter, dropdownValue, dropdownValueTrail;
 
     public Material[] colorfulMaterials = new Material[4];
@@ -20,40 +20,40 @@ public class Phyllotaxis : MonoBehaviour
     public Material[] blueMaterials = new Material[4];
     public Material[] greenMaterials = new Material[4];
     public Material[] purpleMaterials = new Material[4];
-    public Material whiteMaterial; 
+    public Material whiteMaterial;
 
     private int number, counter;
-    
+
     public static float[] frequencyBand = new float[8];
 
     public bool useLerping;
-    public bool useAudioInput, useTrailRenderer; 
+    public bool useAudioInput, useTrailRenderer;
     public float intervalLerp;
-    
+
     private bool isLerping;
     private Vector3 startPosition, endPosition;
     private float timeStartLerping;
-    private int currentIteration; 
+    private int currentIteration;
 
-    float hudDegree, hudScale; 
+    float hudDegree, hudScale;
 
     private Vector3 _phyllotaxisPosition;
 
     void Awake()
-    {     
+    {
         hudDegree = 0f;
         hudScale = 0f;
         counter = 0;
-        instanceCounter = 0; 
+        instanceCounter = 0;
         trailRenderer = this.GetComponent<TrailRenderer>();
         number = numberStart;
-        transform.position = CalculatePhyllotaxis(hudDegree, hudScale, number);
+        //transform.position = CalculatePhyllotaxis(hudDegree, hudScale, number);
 
-        microphoneInput = audioManager.GetComponent<MicrophoneInput>(); 
+        microphoneInput = audioManager.GetComponent<MicrophoneInput>();
 
         if (useLerping)
         {
-            StartLerping(); 
+            StartLerping();
         }
     }
 
@@ -96,7 +96,7 @@ public class Phyllotaxis : MonoBehaviour
                 currentIteration++;
             }
         }
-       
+
     }
     void Update()
     {
@@ -105,97 +105,107 @@ public class Phyllotaxis : MonoBehaviour
         colorChanger = hud.colorChanger;
         useAudioInput = hud.useAudioInput;
         useTrailRenderer = hud.useTrailRenderer;
-        dropdownValue = hud.dropdownValue;
-        dropdownValueTrail = hud.dropdownValueTrail; 
+        //dropdownValue = hud.dropdownValue;
+        //dropdownValueTrail = hud.dropdownValueTrail; 
 
-        if (!useAudioInput)
+        if (hud.startButtonPressed)
         {
-            if (hud.startButtonPressed && hud.drawDots) { 
-                _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
-                GameObject circleInstance = (GameObject)Instantiate(_circle); 
-                circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);   
-                circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale); 
-                numberStart++;
-                instanceCounter++;
-            }
-        }
-     
-        
-
-        if (useAudioInput)
-        {    
-            float average = 0;
-            
-            for (int i = 0; i<8; i++)
+            if (!useAudioInput)
             {
-                frequencyBand[i] = microphoneInput.GetFrequencyBand()[i];
-                average = average + frequencyBand[i];
-            }
-
-            average = average / 8;
-           
-            if (hud.startButtonPressed && hud.drawDots)
-            {
-                if (counter == 0)
+                if (hud.drawDots)
                 {
-                    audioInputDegree = hudDegree;
-                }
-                Debug.Log(" - DEGREE - " + audioInputDegree);
-                _phyllotaxisPosition = CalculatePhyllotaxis(audioInputDegree, hudScale, numberStart);
-                GameObject circleInstance = (GameObject)Instantiate(_circle);
-                circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
-                circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
-                numberStart++;
-                counter++;
-                instanceCounter++;
-                if (average > 0.02)
-                {
-                    audioInputDegree++;
-
+                    dropdownValue = hud.dropdownValue;
+                    _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, numberStart);
+                    GameObject circleInstance = (GameObject)Instantiate(_circle);
+                    circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
+                    circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
+                    _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(GetColorPalette(dropdownValue));
+                    numberStart++;
+                    instanceCounter++;
                 }
             }
-         
+
+
+
+            if (useAudioInput)
+            {
+                float average = 0;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    frequencyBand[i] = microphoneInput.GetFrequencyBand()[i];
+                    average = average + frequencyBand[i];
+                }
+
+                average = average / 8;
+
+                if (hud.drawDots)
+                {
+                    dropdownValue = hud.dropdownValue;
+                    if (counter == 0)
+                    {
+                        audioInputDegree = hudDegree;
+                    }
+                    Debug.Log(" - DEGREE - " + audioInputDegree);
+                    _phyllotaxisPosition = CalculatePhyllotaxis(audioInputDegree, hudScale, numberStart);
+                    GameObject circleInstance = (GameObject)Instantiate(_circle);
+                    circleInstance.transform.position = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.y, 0);
+                    circleInstance.transform.localScale = new Vector3(_circleScale, _circleScale, _circleScale);
+                    _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(GetColorPalette(dropdownValue));
+                    numberStart++;
+                    counter++;
+                    instanceCounter++;
+                    if (average > 0.02)
+                    {
+                        audioInputDegree++;
+
+                    }
+                }
+
+            }
+
+            if (useTrailRenderer && currentIteration < 1)
+            {
+                dropdownValueTrail = hud.dropdownValueTrail;
+                trailRenderer.enabled = true;
+                trailRenderer.material = GetRadomMaterial(SetTrailRendererColor(dropdownValueTrail));
+            }
+
+            if (instanceCounter == colorChanger)
+            {
+                instanceCounter = 0;
+                _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(GetColorPalette(dropdownValue));
+            }
         }
 
-        if (useTrailRenderer && currentIteration<1)
-        {
-            trailRenderer.enabled = true;
-            trailRenderer.material= GetRadomMaterial(SetTrailRendererColor(dropdownValueTrail));  
-        }
+    }
+    private Vector2 CalculatePhyllotaxis(float degree, float scale, int number)
+    {
+        double angle = number * (degree * Mathf.Deg2Rad);
+        float r = scale * Mathf.Sqrt(number);
+        float x = r * (float)System.Math.Cos(angle);
+        float y = r * (float)System.Math.Sin(angle);
 
-        if (instanceCounter == colorChanger)
-        {
-            //audioInputDegree = 0;
-            instanceCounter = 0;
-            _circle.GetComponent<MeshRenderer>().material = GetRadomMaterial(GetColorPalette(dropdownValue));
-        }
-    }  
-    private Vector2 CalculatePhyllotaxis(float degree, float scale, int number){
-        double angle = number * (degree* Mathf.Deg2Rad); 
-        float r = scale * Mathf.Sqrt(number); 
-        float x = r*(float)System.Math.Cos(angle);
-        float y = r*(float)System.Math.Sin(angle); 
-
-        Vector2 vector2 = new Vector2(x,y); 
-        return vector2; 
+        Vector2 vector2 = new Vector2(x, y);
+        return vector2;
     }
     void StartLerping()
     {
-        isLerping = true; 
+        isLerping = true;
         timeStartLerping = Time.time;
         _phyllotaxisPosition = CalculatePhyllotaxis(hudDegree, hudScale, number);
         startPosition = this.transform.position;
-        endPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.x, 0); 
+        endPosition = new Vector3(_phyllotaxisPosition.x, _phyllotaxisPosition.x, 0);
     }
 
-    public Material GetRadomMaterial(Material [] selectedColors)
+    public Material GetRadomMaterial(Material[] selectedColors)
     {
         Material selectedColor;
 
-        int randomInt = Random.Range(0,4);
+        int randomInt = Random.Range(0, 4);
         selectedColor = selectedColors[randomInt];
 
-        return selectedColor; 
+        return selectedColor;
     }
 
     public Material[] GetColorPalette(int dropdownValue)
@@ -225,31 +235,31 @@ public class Phyllotaxis : MonoBehaviour
                 //Debug.Log("LILA");
                 break;
             case 5:
-                for (int i = 0; i<selectedColorPalette.Length; i++)
+                for (int i = 0; i < selectedColorPalette.Length; i++)
                 {
-                    selectedColorPalette[i] = whiteMaterial; 
+                    selectedColorPalette[i] = whiteMaterial;
                 }
                 //Debug.Log("WEIß BIDDE");
                 break;
             default:
                 selectedColorPalette = colorfulMaterials;
                 //Debug.Log("Case default");
-                break; 
+                break;
         }
 
-        return selectedColorPalette; 
+        return selectedColorPalette;
 
     }
 
-    public Material [] SetTrailRendererColor(int dropdownValue)
+    public Material[] SetTrailRendererColor(int dropdownValue)
     {
         Color trailColor = new Color();
-        Material[] selectedMaterials = new Material[4]; 
-       
+        Material[] selectedMaterials = new Material[4];
+
         switch (dropdownValue)
         {
             case 0:
-                trailColor = new Color (157,2,8);
+                trailColor = new Color(157, 2, 8);
                 selectedMaterials = redMaterials;
                 Debug.Log("ROT");
                 break;
@@ -281,11 +291,11 @@ public class Phyllotaxis : MonoBehaviour
                 Debug.Log("Case default");
                 break;
         }
-       
+
         trailRenderer.material.color = trailColor;
         //trailRenderer.material = selectedMaterials[1];
         return selectedMaterials;
-        
+
 
     }
 }
