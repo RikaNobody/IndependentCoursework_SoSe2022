@@ -13,13 +13,14 @@ public class Phyllotaxis : MonoBehaviour
     private TrailRenderer trailRenderer;
   
     public float _degree, _scale, _circleScale, audioInputDegree; 
-    public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter, dropdownValue;
+    public int numberStart, stepSize, maxIteration, colorChanger, instanceCounter, dropdownValue, dropdownValueTrail;
 
     public Material[] colorfulMaterials = new Material[4];
     public Material[] redMaterials = new Material[4];
     public Material[] blueMaterials = new Material[4];
     public Material[] greenMaterials = new Material[4];
     public Material[] purpleMaterials = new Material[4];
+    public Material whiteMaterial; 
 
     private int number, counter;
     
@@ -104,7 +105,8 @@ public class Phyllotaxis : MonoBehaviour
         colorChanger = hud.colorChanger;
         useAudioInput = hud.useAudioInput;
         useTrailRenderer = hud.useTrailRenderer;
-        dropdownValue = hud.dropdownValue; 
+        dropdownValue = hud.dropdownValue;
+        dropdownValueTrail = hud.dropdownValueTrail; 
 
         if (!useAudioInput)
         {
@@ -148,7 +150,6 @@ public class Phyllotaxis : MonoBehaviour
                 instanceCounter++;
                 if (average > 0.02)
                 {
-                    Debug.Log("- - - WERTE ÄNDERN - - -");
                     audioInputDegree++;
 
                 }
@@ -156,9 +157,10 @@ public class Phyllotaxis : MonoBehaviour
          
         }
 
-        if (useTrailRenderer)
+        if (useTrailRenderer && currentIteration<1)
         {
-            trailRenderer.enabled = true;  
+            trailRenderer.enabled = true;
+            trailRenderer.material= GetRadomMaterial(SetTrailRendererColor(dropdownValueTrail));  
         }
 
         if (instanceCounter == colorChanger)
@@ -204,31 +206,86 @@ public class Phyllotaxis : MonoBehaviour
         {
             case 0:
                 selectedColorPalette = colorfulMaterials;
-                Debug.Log("Case 1"); 
+                //Debug.Log("BUNT"); 
                 break;
             case 1:
                 selectedColorPalette = redMaterials;
-                Debug.Log("Case 2");
+                //Debug.Log("ROT");
                 break;
             case 2:
                 selectedColorPalette = blueMaterials;
-                Debug.Log("Case 3");
+                //Debug.Log("BLAU");
                 break;
             case 3:
                 selectedColorPalette = greenMaterials;
-                Debug.Log("Case 4");
+                //Debug.Log("GRÜN");
                 break;
             case 4:
                 selectedColorPalette = purpleMaterials;
-                Debug.Log("Case 5");
+                //Debug.Log("LILA");
+                break;
+            case 5:
+                for (int i = 0; i<selectedColorPalette.Length; i++)
+                {
+                    selectedColorPalette[i] = whiteMaterial; 
+                }
+                //Debug.Log("WEIß BIDDE");
                 break;
             default:
                 selectedColorPalette = colorfulMaterials;
-                Debug.Log("Case default");
+                //Debug.Log("Case default");
                 break; 
         }
 
         return selectedColorPalette; 
+
+    }
+
+    public Material [] SetTrailRendererColor(int dropdownValue)
+    {
+        Color trailColor = new Color();
+        Material[] selectedMaterials = new Material[4]; 
+       
+        switch (dropdownValue)
+        {
+            case 0:
+                trailColor = new Color (157,2,8);
+                selectedMaterials = redMaterials;
+                Debug.Log("ROT");
+                break;
+            case 1:
+                trailColor = new Color(99, 173, 242);
+                selectedMaterials = blueMaterials;
+                Debug.Log("Blau");
+                break;
+            case 2:
+                trailColor = new Color(82, 182, 154);
+                selectedMaterials = greenMaterials;
+                Debug.Log("GRÜN");
+                break;
+            case 3:
+                trailColor = new Color(192, 82, 153);
+                selectedMaterials = purpleMaterials;
+                Debug.Log("LILA");
+                break;
+            case 4:
+                trailColor = Color.white;
+                Debug.Log("WEIß");
+                break;
+            default:
+                trailColor = Color.white;
+                for (int i = 0; i < selectedMaterials.Length; i++)
+                {
+                    selectedMaterials[i] = whiteMaterial;
+                }
+                Debug.Log("Case default");
+                break;
+        }
+       
+        trailRenderer.material.color = trailColor;
+        //trailRenderer.material = selectedMaterials[1];
+        return selectedMaterials;
+        
 
     }
 }
