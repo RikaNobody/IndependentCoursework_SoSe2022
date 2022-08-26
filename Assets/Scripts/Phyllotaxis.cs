@@ -261,26 +261,26 @@ public class Phyllotaxis : MonoBehaviour
             case 0:
                 trailColor = new Color(157, 2, 8);
                 selectedMaterials = redMaterials;
-                Debug.Log("ROT");
+                //Debug.Log("ROT");
                 break;
             case 1:
                 trailColor = new Color(99, 173, 242);
                 selectedMaterials = blueMaterials;
-                Debug.Log("Blau");
+                //Debug.Log("Blau");
                 break;
             case 2:
                 trailColor = new Color(82, 182, 154);
                 selectedMaterials = greenMaterials;
-                Debug.Log("GRÜN");
+                //Debug.Log("GRÜN");
                 break;
             case 3:
                 trailColor = new Color(192, 82, 153);
                 selectedMaterials = purpleMaterials;
-                Debug.Log("LILA");
+                //Debug.Log("LILA");
                 break;
             case 4:
                 trailColor = Color.white;
-                Debug.Log("WEIß");
+                //Debug.Log("WEIß");
                 break;
             default:
                 trailColor = Color.white;
@@ -288,7 +288,7 @@ public class Phyllotaxis : MonoBehaviour
                 {
                     selectedMaterials[i] = whiteMaterial;
                 }
-                Debug.Log("Case default");
+                //Debug.Log("Case default");
                 break;
         }
 

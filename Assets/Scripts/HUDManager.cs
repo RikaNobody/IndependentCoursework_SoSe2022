@@ -53,6 +53,8 @@ public class HUDManager : MonoBehaviour
         {
             currentHUD.SetActive(true);
         }
+
+
     }
 
     public void EndEditInput()
@@ -109,4 +111,7 @@ public class HUDManager : MonoBehaviour
         //SceneManager.LoadScene("SampleScene");
         //Application.LoadLevel(Application.loadedLevel);
     }
+
+
+
 }
