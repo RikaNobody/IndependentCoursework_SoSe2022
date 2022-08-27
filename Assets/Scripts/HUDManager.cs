@@ -20,6 +20,8 @@ public class HUDManager : MonoBehaviour
     string _degreeInput, _circleScaleInput, _colorChangerInput;
     public bool startButtonPressed, useAudioInput, useTrailRenderer, drawDots;
 
+    public SnapshotCamera snapshotCamera;
+
 
     void Start()
     {
@@ -52,6 +54,11 @@ public class HUDManager : MonoBehaviour
         else
         {
             currentHUD.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            snapshotCamera.CallTakeSnapshot();
         }
 
 
