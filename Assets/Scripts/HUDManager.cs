@@ -15,6 +15,7 @@ public class HUDManager : MonoBehaviour
     public GameObject colorChangerInput;
     public Button startButton;
     public Button resetButton;
+    public Button snapButton;
     public float degree, circleScale;
     public int colorChanger, dropdownValue, dropdownValueTrail;
     string _degreeInput, _circleScaleInput, _colorChangerInput;
@@ -28,14 +29,19 @@ public class HUDManager : MonoBehaviour
         _degreeInput = degreeInput.gameObject.GetComponent<TMP_InputField>().text;
         _circleScaleInput = circleScaleInput.gameObject.GetComponent<TMP_InputField>().text;
         _colorChangerInput = colorChangerInput.gameObject.GetComponent<InputField>().text;
-        resetButton.interactable = false;
+        resetButton.gameObject.SetActive(false);
+        snapButton.gameObject.SetActive(false);
+        startButton.onClick.AddListener(EndEditInput);
+        resetButton.onClick.AddListener(ResetScene);
+        snapButton.onClick.AddListener(CallSnap);
 
     }
 
     void Update()
     {
-        startButton.onClick.AddListener(EndEditInput);
-        resetButton.onClick.AddListener(ResetScene);
+        //startButton.onClick.AddListener(EndEditInput);
+        //resetButton.onClick.AddListener(ResetScene);
+        //snapButton.onClick.AddListener(CallSnap);
 
         /* _degreeInput = degreeInput.gameObject.GetComponent<TMP_InputField>().text;
          degree = float.Parse(_degreeInput); 
@@ -50,6 +56,8 @@ public class HUDManager : MonoBehaviour
         if (startButtonPressed)
         {
             currentHUD.SetActive(false);
+            resetButton.gameObject.SetActive(true);
+            snapButton.gameObject.SetActive(true);
         }
         else
         {
@@ -58,7 +66,8 @@ public class HUDManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            snapshotCamera.CallTakeSnapshot();
+            CallSnap();
+            //snapshotCamera.CallTakeSnapshot();
         }
 
 
@@ -115,8 +124,14 @@ public class HUDManager : MonoBehaviour
 
     public void ResetScene()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //SceneManager.LoadScene("SampleScene");
         //Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void CallSnap()
+    {
+        snapshotCamera.CallTakeSnapshot();
     }
 
 
