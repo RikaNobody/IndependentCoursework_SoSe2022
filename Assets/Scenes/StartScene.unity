@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &66167860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1943,7 +1943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1765657119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2071,9 +2071,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startHUD: {fileID: 66167859}
+  optionsHUD: {fileID: 1765657118}
   startButton: {fileID: 1429743093}
   quitButton: {fileID: 1843886828}
   optionsButton: {fileID: 1553277095}
+  applyButton: {fileID: 1844281347}
+  resolutionDropdown: {fileID: 1320913731}
 --- !u!1 &1843886826
 GameObject:
   m_ObjectHideFlags: 0
