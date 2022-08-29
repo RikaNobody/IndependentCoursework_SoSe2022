@@ -280,6 +280,10 @@ public class Phyllotaxis : MonoBehaviour
                 break;
             case 4:
                 trailColor = Color.white;
+                for (int i = 0; i < selectedMaterials.Length; i++)
+                {
+                    selectedMaterials[i] = whiteMaterial;
+                }
                 //Debug.Log("WEIß");
                 break;
             default:
@@ -292,7 +296,7 @@ public class Phyllotaxis : MonoBehaviour
                 break;
         }
 
-        trailRenderer.material.color = trailColor;
+        //trailRenderer.material.color = trailColor;
         //trailRenderer.material = selectedMaterials[1];
         return selectedMaterials;
 
