@@ -9,19 +9,26 @@ using UnityEngine;
 public class SnapshotCamera : MonoBehaviour
 {
     Camera snapshotCamera;
-    int resWidth = 1920;
-    int resHeight = 1080;
+    //GameObject phyllotaxis = GameObject.Find("Phyllotaxis"); 
+    int resWidth;
+    int resHeight;
     Vector3 center = new Vector3(Screen.width / 2, Screen.height / 2, -10);
     Vector3 snapshotCamPos;
+    Rect cameraView;  
 
     void Start()
     {
         snapshotCamera = GetComponent<Camera>();
-
+        //cameraView = snapshotCamera.GetComponent<Rect>(); 
+        
         snapshotCamPos = new Vector3(snapshotCamera.transform.position.x, snapshotCamera.transform.position.y, snapshotCamera.transform.position.z);
-        snapshotCamPos.x = center.x;
-        snapshotCamPos.y = center.y;
+        //snapshotCamPos.x = center.x;
+        //snapshotCamPos.y = center.y;
         //snapshotCamera.transform.Translate(snapshotCamPos);
+        //snapshotCamera.transform.LookAt(GameObject.Find("Phyllotaxis").transform, Vector3.forward); 
+        //snapshotCamera.transform.position = (GameObject.Find("Phyllotaxis").transform.position);
+        //snapshotCamera.transform.Translate(new Vector3(phyllotaxis.transform.position.x,phyllotaxis.transform.position.y,10), Space.World); 
+        //snapshotCamera.transform.Translate(new Vector3(0, 0, 10), Space.World);
 
         if (snapshotCamera.targetTexture == null)
         {
@@ -41,13 +48,15 @@ public class SnapshotCamera : MonoBehaviour
 
     void LateUpdate()
     {
+     
         if (snapshotCamera.gameObject.activeInHierarchy)
         {
             SetResolution();
             Texture2D snapshot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
             snapshotCamera.Render();
             RenderTexture.active = snapshotCamera.targetTexture;
-            snapshot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0);
+            snapshot.ReadPixels(new Rect(0, 0, resWidth, resHeight), 0, 0); // Muss an die geählte resolution angepasst werden, damit es komplett drauf ist. 
+            //snapshot.ReadPixels(cameraView, 0, 0);
             byte[] bytes = snapshot.EncodeToPNG();
             string snapshotName = SetSnapshotName();
             System.IO.File.WriteAllBytes(snapshotName, bytes);
@@ -76,12 +85,12 @@ public class SnapshotCamera : MonoBehaviour
         switch (dropdownValue)
         {
             case 0:
-                resWidth = 1280;
-                resHeight = 720;
-                break;
-            case 1:
                 resWidth = 1920;
                 resHeight = 1080;
+                break;
+            case 1:
+                resWidth = 1280;
+                resHeight = 720;
                 break;
             case 2:
                 resWidth = 3840;
