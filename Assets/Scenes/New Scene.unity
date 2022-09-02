@@ -301,7 +301,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _initiatorSize: 3
   _lerpAmount: 0
-  _generateMultiplier: 1
+  _generateMultiplier: 3.56
 --- !u!120 &1087862414
 LineRenderer:
   m_ObjectHideFlags: 0
