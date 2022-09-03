@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
-  initiator: 2
+  initiator: 5
   _generator:
     serializedVersion: 2
     m_Curve:
@@ -299,9 +299,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _initiatorSize: 5
-  _lerpAmount: 0
-  _generateMultiplier: 2
+  _useBezierCurves: 1
+  _bezierVertexCount: 16
+  _initiatorSize: 3
+  _lerpAmount: 0.301
+  _generateMultiplier: 1
 --- !u!120 &1087862414
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -347,7 +349,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -534,6 +536,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _useBezierCurves: 0
+  _bezierVertexCount: 0
   _initiatorSize: 5.16
 --- !u!4 &1717729247
 Transform:
