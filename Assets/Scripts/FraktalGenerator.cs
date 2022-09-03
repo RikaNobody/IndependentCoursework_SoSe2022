@@ -37,6 +37,7 @@ public class FraktalGenerator : MonoBehaviour
 
     [SerializeField]
     protected AnimationCurve _generator;
+
     protected Keyframe[] _keyframes;
 
     protected int _generationCount;
@@ -102,9 +103,9 @@ public class FraktalGenerator : MonoBehaviour
         for (int i = 0; i < _lineSegment.Count; i++)
         {
             newPosition.Add(_lineSegment[i].StartPosition);
-            targetPosition.Add(_lineSegment[i].EndPosition);
+            targetPosition.Add(_lineSegment[i].StartPosition); // falls er es am ende nciht ändert hier statt endposition start psoition hinzufügen 
 
-            for (int j = 0; i < _keyframes.Length - 1; j++)
+            for (int j = 1; j < _keyframes.Length - 1; j++)
             {
                 float moveAmount = _lineSegment[i].Length * _keyframes[j].time;
                 float hightAmount = (_lineSegment[i].Length * _keyframes[j].value) * generatorMultiplier;
@@ -122,8 +123,10 @@ public class FraktalGenerator : MonoBehaviour
                 targetPosition.Add(movePosition + (direction * hightAmount));
             }
         }
+
         newPosition.Add(_lineSegment[0].StartPosition);
         targetPosition.Add(_lineSegment[0].StartPosition);
+
         _position = new Vector3[newPosition.Count];
         _targetPosition = new Vector3[targetPosition.Count];
         _position = newPosition.ToArray();

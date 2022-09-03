@@ -11,7 +11,9 @@ public class FraktalLine : FraktalGenerator
     public float _lerpAmount;
 
     public float _generateMultiplier;
+
     Vector3[] _lerpPosition;
+
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
@@ -29,7 +31,7 @@ public class FraktalLine : FraktalGenerator
         {
             for (int i = 0; i < _position.Length; i++)
             {
-                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], -_lerpAmount);
+                _lerpPosition[i] = Vector3.Lerp(_position[i], _targetPosition[i], _lerpAmount);
             }
 
             _lineRenderer.SetPositions(_lerpPosition);

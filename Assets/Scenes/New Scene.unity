@@ -247,15 +247,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
-  initiator: 0
+  initiator: 2
   _generator:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0.0000053429976
-      value: -0.000004529953
-      inSlope: 0.0000908109
-      outSlope: 0.0000908109
+      value: 0
+      inSlope: 0.00007786195
+      outSlope: 0.00007786195
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
@@ -271,12 +271,12 @@ MonoBehaviour:
       outWeight: 0.18033604
     - serializedVersion: 3
       time: 0.5020449
-      value: 0.25021988
-      inSlope: 0.9864038
+      value: 0.25
+      inSlope: 1.4290177
       outSlope: -1.5181725
       tangentMode: 1
       weightedMode: 0
-      inWeight: 0.22916949
+      inWeight: 0.13761835
       outWeight: 0.12073689
     - serializedVersion: 3
       time: 0.65126973
@@ -299,9 +299,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _initiatorSize: 3
+  _initiatorSize: 5
   _lerpAmount: 0
-  _generateMultiplier: 3.56
+  _generateMultiplier: 2
 --- !u!120 &1087862414
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087862412}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -347,7 +347,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.2
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -408,7 +408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087862412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.72181, y: -7.979641, z: 8.985558}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -490,8 +490,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287347658}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.729533, y: 0.13047561, z: -0.14523123, w: 0.65548885}
+  m_LocalPosition: {x: -0.18162577, y: 7.097506, z: 0.8227692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
