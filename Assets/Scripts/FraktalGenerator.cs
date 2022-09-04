@@ -32,7 +32,7 @@ public class FraktalGenerator : MonoBehaviour
     [SerializeField]
     protected _axis axis = new _axis();
 
-    [SerializeField]
+    //[SerializeField]
     protected _initiator initiator = new _initiator();
 
     [SerializeField]
@@ -166,6 +166,8 @@ public class FraktalGenerator : MonoBehaviour
     private void OnDrawGizmos()
     {
         GetInitiatorPoints();
+        Debug.Log("INITIATOR: " + initiator);
+
         _initiatorPoint = new Vector3[_initiatorPointAmount];
         _rotateVector = Quaternion.AngleAxis(_initaialRotation, _rotatateAxis) * _rotateVector;
 

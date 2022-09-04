@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PhyllotaxisScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Fractal.unity
+    guid: f1d1f7bf7944b5246aefe539dce95aea
   m_configObjects: {}

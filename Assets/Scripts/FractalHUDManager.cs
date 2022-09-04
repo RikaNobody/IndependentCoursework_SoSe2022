@@ -1,0 +1,105 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class FractalHUDManager : MonoBehaviour
+{
+    public GameObject fractalSetUpHUD;
+    public GameObject fractalLiveHUD;
+
+    // Fractal HUD 
+    public Dropdown chooseShapeDropdown;
+    public InputField shapeSize;
+    public Slider multiplierValue;
+    public TMP_Text multiplierSliderValue;
+    public Button startButton;
+
+    // Live Fractal HUD 
+    public Toggle useBezierCurves;
+    public Slider bezierCurvesVertexCount;
+    public TMP_Text vertexCountSliderValue;
+    public Slider lerpAmount;
+    public TMP_Text lerpAmountSliderValue;
+    public Button restartButton;
+
+    //
+    public bool startButtonPressed;
+    public bool useBezier;
+    public int bezierVertexCount;
+    public int lerpAmountValue;
+    public int _shapeSize;
+    public int _multiplierValue;
+
+    void Start()
+    {
+        startButton.onClick.AddListener(EndEditInput);
+        restartButton.onClick.AddListener(RestartScene);
+    }
+
+    void Update()
+    {
+        multiplierSliderValue.text = multiplierValue.value.ToString();
+        vertexCountSliderValue.text = bezierCurvesVertexCount.value.ToString();
+        lerpAmountSliderValue.text = lerpAmount.value.ToString();
+
+        if (startButtonPressed)
+        {
+            useBezier = useBezierCurves.isOn;
+            bezierVertexCount = int.Parse(bezierCurvesVertexCount.value.ToString());
+            lerpAmountValue = int.Parse(lerpAmount.value.ToString());
+        }
+    }
+
+    void EndEditInput()
+    {
+        startButtonPressed = true;
+
+        if (shapeSize.gameObject.GetComponent<InputField>().text == "")
+        {
+            _shapeSize = 1;
+        }
+        else
+        {
+            string _shapeInput = (shapeSize.gameObject.GetComponent<InputField>().text.ToString());
+            _shapeSize = int.Parse(_shapeInput);
+        }
+
+        _multiplierValue = int.Parse(multiplierValue.value.ToString());
+
+        fractalSetUpHUD.SetActive(false);
+        fractalLiveHUD.SetActive(true);
+
+    }
+
+    void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //fractalLiveHUD.SetActive(false);
+        //fractalSetUpHUD.SetActive(true);
+    }
+
+    /*void SelectShape()
+    {
+        int dropDownValue = chooseShapeDropdown.value;
+        switch (dropDownValue)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+
+        }
+    }
+    */
+}
