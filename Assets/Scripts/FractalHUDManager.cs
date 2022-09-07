@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class FractalHUDManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class FractalHUDManager : MonoBehaviour
 
     // Fractal HUD 
     public Dropdown chooseShapeDropdown;
+    public Dropdown chooseColor;
     public InputField shapeSize;
     public Slider multiplierValue;
     public TMP_Text multiplierSliderValue;
@@ -28,16 +30,34 @@ public class FractalHUDManager : MonoBehaviour
     //
     public bool startButtonPressed;
     public bool useBezier;
+    public bool shapeChanged;
+    public bool colorIsChanged;
     public int bezierVertexCount;
     public int lerpAmountValue;
     public int _shapeSize;
     public int _multiplierValue;
+    public int choosenColor;
 
     void Start()
     {
         startButton.onClick.AddListener(EndEditInput);
         restartButton.onClick.AddListener(RestartScene);
+        chooseShapeDropdown.onValueChanged.AddListener(delegate { ChangedShapeValue(chooseShapeDropdown.value); });
+        chooseColor.onValueChanged.AddListener(delegate { ChangeColor(chooseColor.value); });
     }
+
+    void ChangedShapeValue(int value)
+    {
+        shapeChanged = true;
+    }
+
+    void ChangeColor(int value)
+    {
+        colorIsChanged = true;
+        choosenColor = value;
+    }
+
+
 
     void Update()
     {

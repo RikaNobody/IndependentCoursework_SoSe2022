@@ -54,6 +54,7 @@ public class FraktalGenerator : MonoBehaviour
     private Vector3[] _initiatorPoint;
     private Vector3 _rotateVector;
     private Vector3 _rotatateAxis;
+
     [SerializeField]
     protected float _initiatorSize;
 
@@ -65,24 +66,7 @@ public class FraktalGenerator : MonoBehaviour
 
     private List<LineSegment> _lineSegment;
 
-    protected Vector3[] BezierCurve(Vector3[] points, int vertexCount)
-    {
-        var pointList = new List<Vector3>();
-        for (int i = 0; i < points.Length; i += 2)
-        {
-            if (i + 2 <= points.Length - 1)
-            {
-                for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
-                {
-                    var tangentVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
-                    var tangentVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
-                    var bezierPoint = Vector3.Lerp(tangentVertex1, tangentVertex2, ratio);
-                    pointList.Add(bezierPoint);
-                }
-            }
-        }
-        return pointList.ToArray();
-    }
+
 
     private void Awake()
     {
@@ -192,6 +176,46 @@ public class FraktalGenerator : MonoBehaviour
                 Gizmos.DrawLine(_initiatorPoint[i], _initiatorPoint[0]);
             }
         }
+    }
+    protected Vector3[] BezierCurve(Vector3[] points, int vertexCount)
+    {
+        var pointList = new List<Vector3>();
+        for (int i = 0; i < points.Length; i += 2)
+        {
+            if (i + 2 <= points.Length - 1)
+            {
+                for (float ratio = 0f; ratio <= 1f; ratio += 1.0f / vertexCount)
+                {
+                    var tangentVertex1 = Vector3.Lerp(points[i], points[i + 1], ratio);
+                    var tangentVertex2 = Vector3.Lerp(points[i + 1], points[i + 2], ratio);
+                    var bezierPoint = Vector3.Lerp(tangentVertex1, tangentVertex2, ratio);
+                    pointList.Add(bezierPoint);
+                }
+            }
+        }
+        return pointList.ToArray();
+    }
+    public void DrawShapeNew()
+    {
+        GetInitiatorPoints();
+
+        _position = new Vector3[_initiatorPointAmount + 1];
+        _targetPosition = new Vector3[_initiatorPointAmount + 1];
+        _lineSegment = new List<LineSegment>();
+        _keyframes = _generator.keys;
+
+        _rotateVector = Quaternion.AngleAxis(_initaialRotation, _rotatateAxis) * _rotateVector;
+
+        for (int i = 0; i < _initiatorPointAmount; i++)
+        {
+            _position[i] = _rotateVector * _initiatorSize;
+            _rotateVector = Quaternion.AngleAxis(360 / _initiatorPointAmount, _rotatateAxis) * _rotateVector;
+        }
+
+        _position[_initiatorPointAmount] = _position[0];
+        _targetPosition = _position;
+
+
     }
     private void GetInitiatorPoints()
     {

@@ -8,6 +8,9 @@ public class FraktalLine : FraktalGenerator
     LineRenderer _lineRenderer;
     public FractalHUDManager hudManager;
 
+    [SerializeField]
+    public Material[] possibleColors = new Material[5];
+
 
     [Range(0, 1)]
     public float _lerpAmount;
@@ -30,6 +33,21 @@ public class FraktalLine : FraktalGenerator
     void Update()
     {
         SelectShape();
+        if (hudManager.shapeChanged)
+        {
+            DrawShapeNew();
+            KochFraktalGenerator(_targetPosition, true, _generateMultiplier);
+            _lerpPosition = new Vector3[_position.Length];
+            _lineRenderer.positionCount = _position.Length;
+            _lineRenderer.SetPositions(_position);
+            _lerpAmount = 0;
+            hudManager.shapeChanged = false;
+        }
+        if (hudManager.colorIsChanged)
+        {
+            GetNewColor(hudManager.choosenColor);
+            hudManager.colorIsChanged = false;
+        }
 
         if (hudManager.startButtonPressed)
         {
@@ -119,6 +137,33 @@ public class FraktalLine : FraktalGenerator
                 initiator = _initiator.Triangle;
                 break;
 
+        }
+    }
+
+    public void GetNewColor(int color)
+    {
+        switch (color)
+        {
+            case 0:
+                _lineRenderer.material = possibleColors[0];
+                Debug.Log("White");
+                break;
+            case 1:
+                _lineRenderer.material = possibleColors[1];
+                Debug.Log("Red");
+                break;
+            case 2:
+                _lineRenderer.material = possibleColors[2];
+                Debug.Log("Blue");
+                break;
+            case 3:
+                _lineRenderer.material = possibleColors[3];
+                Debug.Log("Green");
+                break;
+            case 4:
+                _lineRenderer.material = possibleColors[4];
+                Debug.Log("Purple");
+                break;
         }
     }
 }
