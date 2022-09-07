@@ -6,6 +6,7 @@ using UnityEngine;
 public class FraktalLine : FraktalGenerator
 {
     LineRenderer _lineRenderer;
+
     public FractalHUDManager hudManager;
 
     [SerializeField]

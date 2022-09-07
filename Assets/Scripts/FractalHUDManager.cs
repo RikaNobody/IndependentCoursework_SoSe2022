@@ -26,6 +26,7 @@ public class FractalHUDManager : MonoBehaviour
     public Slider lerpAmount;
     public TMP_Text lerpAmountSliderValue;
     public Button restartButton;
+    public Button snapButton;
 
     //
     public bool startButtonPressed;
@@ -38,12 +39,15 @@ public class FractalHUDManager : MonoBehaviour
     public int _multiplierValue;
     public int choosenColor;
 
+    public SnapshotCamera snapshotCamera;
+
     void Start()
     {
         startButton.onClick.AddListener(EndEditInput);
         restartButton.onClick.AddListener(RestartScene);
         chooseShapeDropdown.onValueChanged.AddListener(delegate { ChangedShapeValue(chooseShapeDropdown.value); });
         chooseColor.onValueChanged.AddListener(delegate { ChangeColor(chooseColor.value); });
+        snapButton.onClick.AddListener(CallSnap);
     }
 
     void ChangedShapeValue(int value)
@@ -94,32 +98,14 @@ public class FractalHUDManager : MonoBehaviour
 
     }
 
+    void CallSnap()
+    {
+        snapshotCamera.CallTakeSnapshot();
+    }
+
     void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //fractalLiveHUD.SetActive(false);
-        //fractalSetUpHUD.SetActive(true);
     }
 
-    /*void SelectShape()
-    {
-        int dropDownValue = chooseShapeDropdown.value;
-        switch (dropDownValue)
-        {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-
-        }
-    }
-    */
 }

@@ -10,17 +10,17 @@ public class SnapshotCamera : MonoBehaviour
 {
     Camera snapshotCamera;
     //GameObject phyllotaxis = GameObject.Find("Phyllotaxis"); 
-    int resWidth;
-    int resHeight;
+    int resWidth = 1920;
+    int resHeight = 1080;
     Vector3 center = new Vector3(Screen.width / 2, Screen.height / 2, -10);
     Vector3 snapshotCamPos;
-    Rect cameraView;  
+    Rect cameraView;
 
     void Start()
     {
         snapshotCamera = GetComponent<Camera>();
         //cameraView = snapshotCamera.GetComponent<Rect>(); 
-        
+
         snapshotCamPos = new Vector3(snapshotCamera.transform.position.x, snapshotCamera.transform.position.y, snapshotCamera.transform.position.z);
         //snapshotCamPos.x = center.x;
         //snapshotCamPos.y = center.y;
@@ -48,10 +48,10 @@ public class SnapshotCamera : MonoBehaviour
 
     void LateUpdate()
     {
-     
+
         if (snapshotCamera.gameObject.activeInHierarchy)
         {
-            SetResolution();
+            //SetResolution();
             Texture2D snapshot = new Texture2D(resWidth, resHeight, TextureFormat.RGB24, false);
             snapshotCamera.Render();
             RenderTexture.active = snapshotCamera.targetTexture;
