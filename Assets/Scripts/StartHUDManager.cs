@@ -6,15 +6,16 @@ using UnityEngine.SceneManagement;
 public class StartHUDManager : MonoBehaviour
 {
     public GameObject startHUD, optionsHUD;
-    public Button startButton, quitButton, optionsButton, applyButton;
+    public Button phyllotaxisButton, fractalButton, quitButton, optionsButton, applyButton;
     public Dropdown resolutionDropdown;
     int dropDownValue;
     void Start()
     {
-        startButton.onClick.AddListener(StartPhyllotaxis);
+        phyllotaxisButton.onClick.AddListener(StartPhyllotaxis);
         quitButton.onClick.AddListener(QuitApp);
         optionsButton.onClick.AddListener(OpenOptions);
         applyButton.onClick.AddListener(ApplyResolution);
+        fractalButton.onClick.AddListener(StartFractal);
     }
 
     void Update()
@@ -26,6 +27,11 @@ public class StartHUDManager : MonoBehaviour
     {
         //Debug.Log("S T A R T");
         SceneManager.LoadScene(1);
+    }
+
+    public void StartFractal()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void QuitApp()

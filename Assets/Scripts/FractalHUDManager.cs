@@ -11,6 +11,8 @@ public class FractalHUDManager : MonoBehaviour
     public GameObject fractalSetUpHUD;
     public GameObject fractalLiveHUD;
 
+    public Button backButton;
+
     // Fractal HUD 
     public Dropdown chooseShapeDropdown;
     public Dropdown chooseColor;
@@ -48,6 +50,7 @@ public class FractalHUDManager : MonoBehaviour
         chooseShapeDropdown.onValueChanged.AddListener(delegate { ChangedShapeValue(chooseShapeDropdown.value); });
         chooseColor.onValueChanged.AddListener(delegate { ChangeColor(chooseColor.value); });
         snapButton.onClick.AddListener(CallSnap);
+        backButton.onClick.AddListener(LoadMainMenue);
     }
 
     void ChangedShapeValue(int value)
@@ -106,6 +109,11 @@ public class FractalHUDManager : MonoBehaviour
     void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void LoadMainMenue()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

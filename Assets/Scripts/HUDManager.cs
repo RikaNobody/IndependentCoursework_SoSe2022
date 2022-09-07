@@ -16,6 +16,7 @@ public class HUDManager : MonoBehaviour
     public Button startButton;
     public Button resetButton;
     public Button snapButton;
+    public Button backButton;
     public float degree, circleScale;
     public int colorChanger, dropdownValue, dropdownValueTrail;
     string _degreeInput, _circleScaleInput, _colorChangerInput;
@@ -34,6 +35,7 @@ public class HUDManager : MonoBehaviour
         startButton.onClick.AddListener(EndEditInput);
         resetButton.onClick.AddListener(ResetScene);
         snapButton.onClick.AddListener(CallSnap);
+        backButton.onClick.AddListener(LoadMainMenue);
 
     }
 
@@ -132,6 +134,11 @@ public class HUDManager : MonoBehaviour
     public void CallSnap()
     {
         snapshotCamera.CallTakeSnapshot();
+    }
+
+    void LoadMainMenue()
+    {
+        SceneManager.LoadScene(0);
     }
 
 
