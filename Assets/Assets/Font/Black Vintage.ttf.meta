@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: afe02a516818d3245ad0422cf203a7fb
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Black Vintage
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f1d44bf35d846984a9c1a01aec7d928c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
