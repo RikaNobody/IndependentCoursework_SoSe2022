@@ -40,7 +40,7 @@ public class FractalHUDManager : MonoBehaviour
     public int _shapeSize;
     public int _multiplierValue;
     public int choosenColor;
-
+    public TMP_Text tutorial;
     public SnapshotCamera snapshotCamera;
 
     void Start()
@@ -51,6 +51,7 @@ public class FractalHUDManager : MonoBehaviour
         chooseColor.onValueChanged.AddListener(delegate { ChangeColor(chooseColor.value); });
         snapButton.onClick.AddListener(CallSnap);
         backButton.onClick.AddListener(LoadMainMenue);
+
     }
 
     void ChangedShapeValue(int value)
@@ -68,6 +69,8 @@ public class FractalHUDManager : MonoBehaviour
 
     void Update()
     {
+        tutorial.color = Color.Lerp(Color.white, Color.grey, Mathf.PingPong(Time.time, 1f));
+
         multiplierSliderValue.text = multiplierValue.value.ToString();
         vertexCountSliderValue.text = bezierCurvesVertexCount.value.ToString();
         lerpAmountSliderValue.text = lerpAmount.value.ToString();

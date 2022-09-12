@@ -20,6 +20,8 @@ public class FraktalLine : FraktalGenerator
 
     Vector3[] _lerpPosition;
 
+    bool aWasPressed, sWasPressed;
+
     void Start()
     {
         _lineRenderer = GetComponent<LineRenderer>();
@@ -90,6 +92,7 @@ public class FraktalLine : FraktalGenerator
                 _lineRenderer.positionCount = _position.Length;
                 _lineRenderer.SetPositions(_position);
                 _lerpAmount = 0;
+                aWasPressed = true;
             }
 
             if (Input.GetKeyUp(KeyCode.S))
@@ -100,6 +103,12 @@ public class FraktalLine : FraktalGenerator
                 _lineRenderer.positionCount = _position.Length;
                 _lineRenderer.SetPositions(_position);
                 _lerpAmount = 0;
+                sWasPressed = true;
+            }
+
+            if (aWasPressed && sWasPressed)
+            {
+                Destroy(hudManager.tutorial);
             }
         }
     }
