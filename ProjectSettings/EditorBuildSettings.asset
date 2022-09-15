@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fractal.unity
     guid: f1d1f7bf7944b5246aefe539dce95aea
+  - enabled: 1
+    path: Assets/Scenes/Gallery.unity
+    guid: cf96d6aea41576d42846de842a54b531
   m_configObjects: {}

@@ -74,7 +74,7 @@ public class SnapshotCamera : MonoBehaviour
     {
         string snapshotName;
 
-        snapshotName = string.Format("{0}/Snapshots/Shot-{1}x{2}_{3}.png", Application.dataPath, resWidth, resHeight, System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-s"));
+        snapshotName = string.Format("Assets/Resources/Snapshots/Shot-{1}x{2}_{3}.png", Application.dataPath, resWidth, resHeight, System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-s"));
 
         return snapshotName;
     }
