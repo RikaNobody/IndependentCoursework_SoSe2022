@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class StartHUDManager : MonoBehaviour
 {
-    public GameObject startHUD, optionsHUD;
-    public Button phyllotaxisButton, fractalButton, quitButton, optionsButton, applyButton, exhibitionButton;
+    public GameObject startHUD, optionsHUD, creditsHUD;
+    public Button phyllotaxisButton, fractalButton, quitButton, optionsButton, applyButton, exhibitionButton, backButton, creditsButton, creditsBackButton;
     public Dropdown resolutionDropdown;
     int dropDownValue;
     void Start()
@@ -17,6 +17,9 @@ public class StartHUDManager : MonoBehaviour
         applyButton.onClick.AddListener(ApplyResolution);
         fractalButton.onClick.AddListener(StartFractal);
         exhibitionButton.onClick.AddListener(OpenExhibition);
+        backButton.onClick.AddListener(BackToMenu);
+        creditsButton.onClick.AddListener(ShowCredits);
+        creditsBackButton.onClick.AddListener(CloseCredits);
     }
 
     void Update()
@@ -51,6 +54,24 @@ public class StartHUDManager : MonoBehaviour
     public void OpenExhibition()
     {
         SceneManager.LoadScene(3);
+    }
+
+    public void BackToMenu()
+    {
+        optionsHUD.SetActive(false);
+        startHUD.SetActive(true);
+
+    }
+    public void ShowCredits()
+    {
+        startHUD.SetActive(false);
+        creditsHUD.SetActive(true);
+    }
+
+    public void CloseCredits()
+    {
+        creditsHUD.SetActive(false);
+        startHUD.SetActive(true);
     }
 
     public void ApplyResolution()
