@@ -10557,15 +10557,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233641337301559326, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641337301559326, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641337301559326, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641338199440265, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_ClearFlags
@@ -10573,15 +10573,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233641338199440265, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641338199440265, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641338199440265, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0
+      value: 0.15294118
       objectReference: {fileID: 0}
     - target: {fileID: 4233641338878761364, guid: 2b04a578108061d478402acb8fbee0b9, type: 3}
       propertyPath: m_Name

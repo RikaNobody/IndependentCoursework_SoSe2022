@@ -7,6 +7,7 @@ public class ImageScript : MonoBehaviour
 {
 
     Button imgBtn;
+    public GameObject scrollView;
     public GameObject bigImage;
 
     void Start()
@@ -14,6 +15,7 @@ public class ImageScript : MonoBehaviour
         imgBtn = GetComponent<Button>();
         imgBtn.onClick.AddListener(ImageClicked);
         bigImage = GameObject.FindWithTag("BigImage");
+        scrollView = GameObject.FindWithTag("ScrollView");
         bigImage.GetComponent<RawImage>().enabled = false;
     }
 
@@ -28,11 +30,13 @@ public class ImageScript : MonoBehaviour
 
         bigImage.AddComponent<Button>();
         bigImage.GetComponent<Button>().onClick.AddListener(CloseImage);
+        scrollView.SetActive(false);
     }
 
     void CloseImage()
     {
         Debug.Log("Close Image");
         bigImage.GetComponent<RawImage>().enabled = false;
+        scrollView.SetActive(true);
     }
 }
