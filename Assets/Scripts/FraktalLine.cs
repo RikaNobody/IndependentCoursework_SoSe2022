@@ -86,7 +86,6 @@ public class FraktalLine : FraktalGenerator
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                Debug.Log(" - A - GEDRÜCK DU EUMEL");
                 KochFraktalGenerator(_targetPosition, true, _generateMultiplier);
                 _lerpPosition = new Vector3[_position.Length];
                 _lineRenderer.positionCount = _position.Length;
@@ -97,7 +96,6 @@ public class FraktalLine : FraktalGenerator
 
             if (Input.GetKeyUp(KeyCode.S))
             {
-                Debug.Log(" - S - GEDRÜCK DU EUMEL");
                 KochFraktalGenerator(_targetPosition, false, _generateMultiplier);
                 _lerpPosition = new Vector3[_position.Length];
                 _lineRenderer.positionCount = _position.Length;
